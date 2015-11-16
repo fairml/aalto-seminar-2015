@@ -4,4 +4,4 @@ http://www.kamishima.net/fac/
 
 NOTE: On running the data-adultd/generate.sh the directory for 'w' cannot be found, just set it to the current directory.
 
-
+NOTE: On line 53 of fai_bin_bin.py add a cast to float to fix any parsing errors with the input file: s = int(float(f[opt.sensitive]))
