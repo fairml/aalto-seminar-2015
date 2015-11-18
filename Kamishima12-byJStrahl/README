@@ -1,3 +1,15 @@
+This is an implementation of the prejudice-aware regulariser for classification from:
+
+Toshihiro Kamishima, Shotaro Akaho, Hideki Asoh, and Jun Sakuma. Fairness-aware classifier with
+prejudice remover regularizer. In PeterA. Flach, Tijl De Bie, and Nello Cristianini, editors, Machine
+Learning and Knowledge Discovery in Databases, volume 7524 of Lecture Notes in Computer Science,
+pages 35–50. Springer Berlin Heidelberg, 2012.
+
+The main file to run all is FairnessAwareReg.m. From there each linear regresion model (LR, LR without sensitive 
+tures, LR with prejudice aware reularizer with different etta parameter values) is run.
+
+This implementation is based on the paper and on Python source code published by the author:
+
 The orignal Python source code by the author can be found here:
 
 http://www.kamishima.net/fac/
