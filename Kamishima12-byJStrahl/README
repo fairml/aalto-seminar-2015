@@ -17,3 +17,11 @@ http://www.kamishima.net/fac/
 NOTE: On running the data-adultd/generate.sh the directory for 'w' cannot be found, just set it to the current directory.
 
 NOTE: On line 53 of fai_bin_bin.py add a cast to float to fix any parsing errors with the input file: s = int(float(f[opt.sensitive]))
+
+Acknowledgement:
+
+The source code for the logisitic regression cost function and optimization was originally based on code by 'quinnliu', this helped save a lot of time to get started, thank you for sharing!
+
+user: https://github.com/quinnliu
+code: https://github.com/quinnliu/machineLearning/tree/master/supervisedLearning/logisticRegression
+
