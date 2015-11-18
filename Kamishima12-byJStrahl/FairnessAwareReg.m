@@ -72,29 +72,28 @@ y_hat_LRPR15 = predictWFA(theta_LRPR15, s, X);
 y_hat_LRPR30 = predictWFA(theta_LRPR30, s, X);
 y_hat_LRPR100 = predictWFA(theta_LRPR100, s, X);
 
-Y_hat = [y_hat_LR;y_hat_LR_ns;y_hat_LRPR1;y_hat_LRPR5;y_hat_LRPR15;y_hat_LRPR30;y_hat_LRPR100];
+Y_hat = [y_hat_LR,y_hat_LR_ns,y_hat_LRPR1,y_hat_LRPR5,y_hat_LRPR15,y_hat_LRPR30,y_hat_LRPR100];
 
-model_results = zeros(length(Y_hat),6); % LR,LR_ns,LRPR{1,5,15,30,100} x acc., NMI, NPI, UEI, CVS, PI/MI
+model_results = zeros(size(Y_hat,2),6); % LR,LR_ns,LRPR eta={1,5,15,30,100} x acc., NMI, NPI, UEI, CVS, PI/MI
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Measure accuracy, mutual information (MI), NMI, PI, NPI, UEI, SCVS, ECVS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-for i = 1:size(Y_hat,1)
+for i = 1:size(Y_hat,2)
     % Accuracy = (#truePos + #trueNeg) / (#truePos + #falseP + #trueNeg + #falseN)
-    model_results(i,1) = sum(Y_hat(i,:)' == y) / length(y);
+    model_results(i,1) = sum(Y_hat(:,i) == y) / length(y);
     % MI = sum p(x,y) log (p(x,y) / (p(x)p(y))), NMI = MI / sqrt(H(X)H(Y)),
     % where H(X) is the entropy of X, that is represented by y_hat
-    [NMI,MI] = mutualInformationXY(y,Y_hat(i,:)');
+    [NMI,MI] = mutualInformationXY(y,Y_hat(:,i));
     model_results(i,2) = NMI;
     % NPI = sum p(y,s) log(p(y,s)/(p(y)p(s))), NPI = PI / sqrt(H(Y)H(S))
-    [NPI,PI] = prejudiceIndex(Y_hat(i,:)',s);
+    [NPI,PI] = prejudiceIndex(Y_hat(:,i),s);
     model_results(i,3) = NPI;
     % UEI = sqrt(1 - sqrt(p_hat(y,s)*p_samp(y,s)))
-    model_results(i,4) = underEstimationIndex(Y_hat(i,:)',y,s);
+    model_results(i,4) = underEstimationIndex(Y_hat(:,i),y,s);
     % CVS = P(Y=1|S=1) - P(Y=1|S=0)
-    model_results(i,5) = CaldersVerwerScore(Y_hat(i,:)',s);
+    model_results(i,5) = CaldersVerwerScore(Y_hat(:,i),s);
     % PI/MI
     model_results(i,6) = PI / MI;
 end
